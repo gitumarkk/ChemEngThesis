@@ -33,3 +33,11 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# Windows
+*.bat
+*.db
+
+# Extra Files
+to do.txt
+
