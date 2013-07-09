@@ -1,26 +1,14 @@
-import sys
 import os
-CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
-BASE_DIR = os.path.split(CURRENT_DIR)[0]
-sys.path.append(BASE_DIR)
-
-#~ import numpy
 import matplotlib
-
 import wx
 import wx.grid as gridlib
 import wx.lib.agw.aui as aui
 import wx.lib.scrolledpanel as scrolled
 import wx.lib.agw.advancedsplash as AS
-
-import matplotlib.pyplot as pyplot
 from matplotlib.backends.backend_wxagg import NavigationToolbar2Wx as Toolbar
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as Canvas
-#~ from scipy.interpolate import spline
-
 from data import data
 from calculations import expt
-from images import images
 
 ID_MainToolBar_file = wx.NewId()
 ID_MainToolBar_save = wx.NewId()
@@ -32,6 +20,8 @@ ID_Absorbance_calc  = wx.NewId()
 ID_help_menu        = wx.NewId()
 ID_About            = wx.NewId()
 
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+BASE_DIR = os.path.split(CURRENT_DIR)[0]
 
 # PATHS
 IMAGE_PATH = os.path.join(BASE_DIR, "images")
@@ -312,25 +302,25 @@ class MainFrame(frame):
         bagSizer.Add(choice_m_1, pos=(1,0), span=(1, 3), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
 
         #~ Creating The Metals Check Box
-        text2       = wx.StaticText(modelsidepanel, label="Choose To Metal(s) to Model")
+        text2 = wx.StaticText(modelsidepanel, label="Choose To Metal(s) to Model")
 
-        cb_Cu       = wx.CheckBox(modelsidepanel, -1, 'Cu')
-        cb_Zn       = wx.CheckBox(modelsidepanel, -1, 'Zn')
-        cb_Pb       = wx.CheckBox(modelsidepanel, -1, 'Pb')
-        cb_Al       = wx.CheckBox(modelsidepanel, -1, 'Al')
-        cb_Sn       = wx.CheckBox(modelsidepanel, -1, 'Sn')
-        cb_Fe       = wx.CheckBox(modelsidepanel, -1, 'Fe')
+        cb_Cu = wx.CheckBox(modelsidepanel, -1, 'Cu')
+        cb_Zn = wx.CheckBox(modelsidepanel, -1, 'Zn')
+        cb_Pb = wx.CheckBox(modelsidepanel, -1, 'Pb')
+        cb_Al = wx.CheckBox(modelsidepanel, -1, 'Al')
+        cb_Sn = wx.CheckBox(modelsidepanel, -1, 'Sn')
+        cb_Fe = wx.CheckBox(modelsidepanel, -1, 'Fe')
 
         #~ Placing the Metals checkbox widgets on the pane using the grid bag sizer
-        bagSizer.Add(text2, pos=(2,0), span=(1, 3), flag = wx.EXPAND | wx.LEFT | wx.TOP | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(text2, pos=(2, 0), span=(1, 3), flag = wx.EXPAND | wx.LEFT | wx.TOP | wx.ALIGN_CENTER_VERTICAL, border = 10)
 
-        bagSizer.Add(cb_Cu, pos=(3,0), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
-        bagSizer.Add(cb_Zn, pos=(3,1), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
-        bagSizer.Add(cb_Pb, pos=(3,2), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(cb_Cu, pos=(3, 0), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(cb_Zn, pos=(3, 1), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(cb_Pb, pos=(3, 2), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
 
-        bagSizer.Add(cb_Al, pos=(4,0), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
-        bagSizer.Add(cb_Sn, pos=(4,1), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
-        bagSizer.Add(cb_Fe, pos=(4,2), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(cb_Al, pos=(4, 0), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(cb_Sn, pos=(4, 1), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(cb_Fe, pos=(4, 2), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
 
         #~ Creating Bacterial Species for Bacterial Growth Rate
         list_2      = ['Acidiothiobacillus Ferrooxidaans', 'Leptospirillum Ferriphillum', 'Both']
@@ -338,10 +328,10 @@ class MainFrame(frame):
         #~ slider       = wx.Slider(modelsidepanel, -1, 1, 0, 1, wx.DefaultPosition, (150, -1), wx.SL_HORIZONTAL | wx.SL_AUTOTICKS | wx.SL_LABELS )
         #~ slider.SetTickFreq(1, 1)
 
-        text_3      = wx.StaticText(modelsidepanel, label="Choose Bacterial Species To Model")
-        choice_2    = wx.Choice(modelsidepanel, -1, size = (150, 25), choices = list_2)
+        text_3 = wx.StaticText(modelsidepanel, label="Choose Bacterial Species To Model")
+        choice_2 = wx.Choice(modelsidepanel, -1, size = (150, 25), choices = list_2)
 
-        text_4      = wx.StaticText(modelsidepanel, label="Choose Ratio in % of AtF : Lf")
+        text_4 = wx.StaticText(modelsidepanel, label="Choose Ratio in % of AtF : Lf")
         spinc = wx.SpinCtrl(modelsidepanel, -1, "", (30, 50))
         spinc.SetRange(0,100)
         spinc.SetValue(0)
@@ -377,8 +367,8 @@ class MainFrame(frame):
         bioleachsidepanel = scrolled.ScrolledPanel(self, -1, size = wx.Size(200,200), style = wx.TAB_TRAVERSAL|wx.SUNKEN_BORDER, name="modelsidepanel")
         sizer = wx.BoxSizer(wx.VERTICAL)
 
-        list_1  = ['Ferrous Sulphate', 'Pyrite', 'Chalcopyrite']
-        list_2      = ['Acidiothiobacillus Ferrooxidaans', 'Leptospirillum Ferriphillum', 'Both']
+        list_1 = ['Ferrous Sulphate', 'Pyrite', 'Chalcopyrite']
+        list_2 = ['Acidiothiobacillus Ferrooxidaans', 'Leptospirillum Ferriphillum', 'Both']
 
         #~ Creating the BagSizer
         bagSizer    = wx.GridBagSizer(5, 5)
@@ -417,7 +407,6 @@ class MainFrame(frame):
         bioleachsidepanel.SetSizer(bagSizer)
         bioleachsidepanel.SetAutoLayout(1)
         bioleachsidepanel.SetupScrolling()
-        #~ bioleachsidepanel.SetSizer(sizer)
         return bioleachsidepanel
 
     #~ CREATING NEW INSTANCE OF NOTEBOOK, purpose is to add to pane
@@ -565,8 +554,6 @@ class MainFrame(frame):
         if self.cb_Expt_4.IsChecked():
             self.IronShowAll()
 
-        #~ dataplot = DataPlot(mgr = self._mgr, run = self.GetExptChoiceValue())
-
     """
         Function that updates the data pane by getting all the children, deleting them and updating the data
         This function is called by RunExpt() from bound event with id = ID_Button_Expt_Run
@@ -575,15 +562,14 @@ class MainFrame(frame):
         datapane    = self._mgr.GetPane("OutputData").window
         datapane.DestroyChildren()
 
-        if datapane.GetChildren():
-            print "I have children"
+        # if datapane.GetChildren():
+        #     print "I have children"
             #~ for child in datapane.GetChildren():
                 #~ child.DestroyChildren()
 
 
         mainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
-        #~ mainSizer.Add(self.DataArrayToString(datapane), 0, wx.ALL, 10)
         self.DataArrayToGrid(datapane)
 
         sizer   = wx.BoxSizer(wx.VERTICAL)
@@ -619,17 +605,13 @@ class MainFrame(frame):
 
     def DataArrayToGrid(self, parent):
         grid    = gridlib.Grid(parent)
-        #~ grid.CreateGrid(self.GetDataArrayRows() + 5, self.GetDataArrayColumns() + 5)
         grid.CreateGrid(25, 25)
-        #~ print self.GetDataArrayRows()
-        #~ print self.GetDataArrayColumns()
         grid.EnableEditing(False)
         grid.SetRowLabelSize(0)
         grid.SetColLabelSize(0)
 
         data_str    = 'The Run is ' + str(self.plot_data.GetExptRun()) + "\n"
         grid.SetCellValue(0,0, data_str)
-        #~ grid.SetReadOnly(0,0, True)
 
         i = 0
         for item_array in self.DataDictToArray():
@@ -640,7 +622,6 @@ class MainFrame(frame):
 
                 grid.SetCellValue(j,i, str(item))
                 grid.SetReadOnly(j,i, True)
-                #~ print "i = %s, j = %s" %(i , j)
                 j += 1
             i += 1
         return grid
@@ -661,8 +642,6 @@ class MainFrame(frame):
             for item in self.raw_data[dict_key]:
                 data_array.append(item)
 
-                #~ print item
-
             #~ Parsing the Iron Concentration
             self.iron_conc[dict_key][0].insert(0, "Time (Min)")
             self.iron_conc[dict_key][1].insert(0, "Fe3+ (g/l)")
@@ -673,18 +652,15 @@ class MainFrame(frame):
                     data_array.append(item)
 
             #~ Parsing the Copper Concentration
-
             """
                 copper_conc[dict_key][0] shares the same memory location as raw_data[dict_key][0].
             """
-            #~ self.copper_conc[dict_key][0].insert(0, "Time in Min")
             self.copper_conc[dict_key][1].insert(0, "Copper (g/L)")
 
             for item in self.copper_conc[dict_key]:
                 if item not in data_array:
                     data_array.append(item)
 
-                #~ print item
         return data_array
 
     """
@@ -693,25 +669,18 @@ class MainFrame(frame):
 
     def CopperShow(self):
         for k in self.copper_conc:
-            #~ X_new , Y_new    = self.curve_smoothing(self.copper_conc[k][0], self.copper_conc[k][1])
             figure = self.Add('Copper_data ' + str(k) + 'g/L').gca(ylabel = "Copper conc in g", xlabel = "Time (min)")
             figure.plot(self.copper_conc[k][0], self.copper_conc[k][1], '-x', label = str(k)+"g/L")
-            #~ figure.legend(['Actual'], 7)
             figure.legend(loc = "lower center", bbox_to_anchor = (0.5, 0), ncol = 2, fancybox = True, shadow = True)
 
     def CopperShowAll(self):
         figure = self.Add('Show All Copper Data').gca(ylabel = "Copper conc in g", xlabel = "Time (min)")
         for k in self.copper_conc:
-            #~ X_new , Y_new    = self.curve_smoothing(self.copper_conc[k][0], self.copper_conc[k][1])
             figure.plot(self.copper_conc[k][0], self.copper_conc[k][1], '-x', label = str(k)+"g/L Copper")
-            #~ figure.plot(X_new, Y_new, label = str(k)+"g/L Copper Fitted")
             figure.legend(loc = "lower center", bbox_to_anchor = (0.5, 0), ncol = 2, fancybox = True, shadow = True)
 
     def IronShow(self):
         for k in self.iron_conc:
-            #~ X_new , Y_new    = self.curve_smoothing(self.iron_conc[k][0], self.iron_conc[k][1])
-            #~ X2_new , Y2_new  = self.curve_smoothing(self.iron_conc[k][0], self.iron_conc[k][2])
-
             figure = self.Add('Iron_data ' + str(k) + 'g/L').gca(ylabel = "iron conc in g", xlabel = "Time (min)")
             figure.plot(self.iron_conc[k][0], self.iron_conc[k][1], '-x', label = str(k)+"g/L Fe2+")
             figure.plot(self.iron_conc[k][0], self.iron_conc[k][2], '-x', label = str(k)+"g/L Fe3+")
@@ -720,15 +689,9 @@ class MainFrame(frame):
 
     def IronShowAll(self):
         figure = self.Add('Show All Iron Data').gca(ylabel = "iron conc in g", xlabel = "Time (min)")
-
         for k in self.iron_conc:
-            #~ X_new , Y_new    = self.curve_smoothing(self.iron_conc[k][0], self.iron_conc[k][1])
-            #~ X2_new , Y2_new  = self.curve_smoothing(self.iron_conc[k][0], self.iron_conc[k][2])
-
             figure.plot(self.iron_conc[k][0], self.iron_conc[k][1], '-x', label = str(k)+"g/L Fe2+")
-            #~ figure.plot( X_new, Y_new, '', label = str(k)+"g/L Fe2+ Fitted")
             figure.plot(self.iron_conc[k][0], self.iron_conc[k][2], '-x', label = str(k)+"g/L Fe3+")
-            #~ figure.plot(X2_new, Y2_new, '', label = str(k)+"g/L Fe3+ Fitted")
             figure.legend(loc = "upper center", bbox_to_anchor = (0.5, 1.1), ncol = 4, fancybox = True, shadow = True)
 
     def KeyShow(self):
@@ -739,132 +702,6 @@ class MainFrame(frame):
         page    = Plot(self.newtab)
         self.newtab.AddPage(page, name, True, self.page_bmp)
         return page.figure
-
-"""
-    def curve_smoothing(self, X, Y):
-        #~ print X, X[0], X[len(X)-1]
-        #~ X_new    = numpy.linspace(X.min(), X.max(), 100)
-        X_new   = numpy.linspace(X[0], X[len(X)-1], 50)
-        Y_new   = spline(X, Y, X_new)
-
-        return X_new, Y_new
-"""
-
-"""
-    #~ CLASS TO OUTPUT THE DATA TO THE BOTTOM PANE
-"""
-
-"""
-class DataOutput(frame):
-    def __init__(self, _mgr = None):
-
-        self.parent = parent
-
-    def CreateDataOutputPane(self):
-        output_data     = DataOutput(self, id=-1, mgr=self._mgr)
-        return output_data
-
-    def CreateStaticText(self):
-        text = wx.StaticText(datapane, -1, "Apples", (30, 20))
-
-        return text
-"""
-
-"""
-class DataPlot(frame):
-    def __init__(self, mgr = None, run = None):
-        wx.Frame.__init__(self, None, wx.ID_ANY, title="Data Plotting", size=(1000, 700))
-        self._mgr   =   mgr
-
-        self.plot_data      = expt.Data(run = run)
-        self.iron_conc      = self.plot_data.iron_conc()
-        self.copper_conc    = self.plot_data.copper_conc()
-        self.raw_data       = self.plot_data.GetRawIronData()
-
-        self._mgr.AddPane(self.CreateNotebookPlot(), aui.AuiPaneInfo().Name("notebook_content").CenterPane().PaneBorder(True).Floatable(False))
-
-        print "DataPlot is Running"
-
-
-    def CreateNotebookPlot(self):
-        self._notebook_style    = aui.AUI_NB_DEFAULT_STYLE | aui.AUI_NB_TAB_EXTERNAL_MOVE | wx.NO_BORDER
-        self._notebook_theme    = 0
-        client_size     = self.GetClientSize()
-
-        self.newtab     = aui.AuiNotebook(self, -1, wx.Point(client_size.x, client_size.y), wx.Size(430, 200), agwStyle = self._notebook_style)
-        arts            = [aui.AuiDefaultTabArt, aui.AuiSimpleTabArt, aui.VC71TabArt, aui.FF2TabArt, aui.VC8TabArt, aui.ChromeTabArt]
-        art             = arts[len(arts)-1]()
-        self.newtab.SetArtProvider(art)
-
-        self.page_bmp       = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE, wx.ART_OTHER, wx.Size(16, 16))
-
-        sizer           = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(self.newtab, 1, wx.EXPAND)
-        self.SetSizer(sizer)
-
-        return self.newtab
-
-    def ExptRun(self, run = None):
-        self.plot_data          = expt.Data(run = run)
-        self.iron_conc      = self.plot_data.iron_conc()
-        self.copper_conc    = self.plot_data.copper_conc()
-        self.raw_data       = self.plot_data.GetRawIronData()
-
-
-    def CopperShow(self):
-        for k in self.copper_conc:
-            X_new , Y_new   = self.curve_smoothing(self.copper_conc[k][0], self.copper_conc[k][1])
-            figure = self.Add('Copper_data ' + str(k) + 'g/L').gca(ylabel = "Copper conc in g", xlabel = "Time (min)")
-            figure.plot(self.copper_conc[k][0], self.copper_conc[k][1], '--', X_new, Y_new, 'k')
-            figure.legend(['Actual', 'Fitted'], 7)
-
-    def CopperShowAll(self):
-        figure = self.Add('Show All Copper Data').gca(ylabel = "Copper conc in g", xlabel = "Time (min)")
-        for k in self.copper_conc:
-            X_new , Y_new   = self.curve_smoothing(self.copper_conc[k][0], self.copper_conc[k][1])
-            figure.plot(self.copper_conc[k][0], self.copper_conc[k][1], '--', label = str(k)+"g/L Copper Actual")
-            figure.plot(X_new, Y_new, label = str(k)+"g/L Copper Fitted")
-            figure.legend(loc = "lower center", bbox_to_anchor = (0.5, 0), ncol = 2, fancybox = True, shadow = True)
-
-    def IronShow(self):
-        for k in self.iron_conc:
-            X_new , Y_new   = self.curve_smoothing(self.iron_conc[k][0], self.iron_conc[k][1])
-            X2_new , Y2_new = self.curve_smoothing(self.iron_conc[k][0], self.iron_conc[k][2])
-
-            figure = self.Add('Iron_data ' + str(k) + 'g/L').gca(ylabel = "iron conc in g", xlabel = "Time (min)")
-            figure.plot(self.iron_conc[k][0], self.iron_conc[k][1], '--', X_new, Y_new, 'k')
-            figure.plot(self.iron_conc[k][0], self.iron_conc[k][2], '--', X2_new, Y2_new, 'r')
-            figure.legend(['Actual', 'Fitted', 'Actual', 'Fitted'], 7)
-
-    def IronShowAll(self):
-        figure = self.Add('Show All Iron Data').gca(ylabel = "iron conc in g", xlabel = "Time (min)")
-
-        for k in self.iron_conc:
-            X_new , Y_new   = self.curve_smoothing(self.iron_conc[k][0], self.iron_conc[k][1])
-            X2_new , Y2_new = self.curve_smoothing(self.iron_conc[k][0], self.iron_conc[k][2])
-
-            figure.plot(self.iron_conc[k][0], self.iron_conc[k][1], '--', label = str(k)+"g/L Fe2+ Actual")
-            figure.plot( X_new, Y_new, '', label = str(k)+"g/L Fe2+ Fitted")
-            figure.plot(self.iron_conc[k][0], self.iron_conc[k][2], '--', label = str(k)+"g/L Fe3+ Actual")
-            figure.plot(X2_new, Y2_new, '', label = str(k)+"g/L Fe3+ Fitted")
-            figure.legend(loc = "upper center", bbox_to_anchor = (0.5, 1.1), ncol = 4, fancybox = True, shadow = True)
-
-    def KeyShow(self):
-        self.newtab.AddPage(wx.Panel(self, id=-1), "Data Key", True, self.page_bmp)
-
-    def curve_smoothing(self, X, Y):
-        #~ print X, X[0], X[len(X)-1]
-        #~ X_new    = numpy.linspace(X.min(), X.max(), 100)
-        X_new   = numpy.linspace(X[0], X[len(X)-1], 50)
-        Y_new   = spline(X, Y, X_new)
-
-        return X_new, Y_new
-
-    def Add(self, name = None):
-        page    = Plot(self.newtab)
-        self.newtab.AddPage(page, name, True, self.page_bmp)
-        return page.figure
-"""
 
 class Plot(wx.Panel):
     """
@@ -892,5 +729,3 @@ if __name__  == "__main__":
     frame = MainFrame()
     frame.Show()
     app.MainLoop()
-
-
