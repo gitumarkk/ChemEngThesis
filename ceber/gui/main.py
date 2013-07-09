@@ -233,41 +233,51 @@ class MainFrame(frame):
     #~ CREATING THE EXPERIMENT PLOTTING side menu
 
     def CreateExptSideMenu(self):
-        sidepanel   = scrolled.ScrolledPanel(self, -1, size = wx.Size(200,200), style = wx.TAB_TRAVERSAL|wx.SUNKEN_BORDER, name="Exptsidepanel")
+        sidepanel = scrolled.ScrolledPanel(self,
+                                           -1,
+                                           size=wx.Size(200, 200),
+                                           style=wx.TAB_TRAVERSAL|wx.SUNKEN_BORDER,
+                                           name="Exptsidepanel")
 
-        bagSizer    = wx.GridBagSizer(5, 5)
-        topSizer    = wx.BoxSizer(wx.VERTICAL)
+        bagSizer = wx.GridBagSizer(5, 5)
+        topSizer = wx.BoxSizer(wx.VERTICAL)
 
         choice_list = data.run_keys()
         choice_list.sort()
 
-        self.choice_1           = wx.Choice(sidepanel, ID_Choice_Expt_Run, size = (60, 25), choices = choice_list)
-        self.button_expt_run    = wx.Button(sidepanel, ID_Button_Expt_Run, "Calculate", (60, 25))
+        self.choice_1 = wx.Choice(sidepanel,
+                                  ID_Choice_Expt_Run,
+                                  size=(60, 25),
+                                  choices = choice_list)
 
-        self.cb_Expt_1      = wx.CheckBox(sidepanel, -1, 'Single Cu')
-        self.cb_Expt_2      = wx.CheckBox(sidepanel, -1, 'All Cu')
-        self.cb_Expt_3      = wx.CheckBox(sidepanel, -1, 'Single Fe')
-        self.cb_Expt_4      = wx.CheckBox(sidepanel, -1, 'All Fe')
-        self.cb_Expt_5      = wx.CheckBox(sidepanel, -1, 'Eh')
-        self.cb_Expt_6      = wx.CheckBox(sidepanel, -1, 'pH')
-        self.cb_Expt_7      = wx.CheckBox(sidepanel, -1, 'Rates')
+        self.button_expt_run = wx.Button(sidepanel,
+                                         ID_Button_Expt_Run,
+                                         "Calculate", (60, 25))
+
+        self.cb_Expt_1 = wx.CheckBox(sidepanel, -1, 'Single Cu')
+        self.cb_Expt_2 = wx.CheckBox(sidepanel, -1, 'All Cu')
+        self.cb_Expt_3 = wx.CheckBox(sidepanel, -1, 'Single Fe')
+        self.cb_Expt_4 = wx.CheckBox(sidepanel, -1, 'All Fe')
+        self.cb_Expt_5 = wx.CheckBox(sidepanel, -1, 'Eh')
+        self.cb_Expt_6 = wx.CheckBox(sidepanel, -1, 'pH')
+        self.cb_Expt_7 = wx.CheckBox(sidepanel, -1, 'Rates')
 
         self.cb_Expt_2.SetValue(True)
         self.cb_Expt_4.SetValue(True)
 
-        bagSizer.Add(self.choice_1, pos=(0,0), flag = wx.EXPAND | wx.ALL | wx.ALIGN_CENTER_VERTICAL, border = 10)
-        bagSizer.Add(self.button_expt_run, pos=(0,1), flag = wx.ALL | wx.ALIGN_CENTER_VERTICAL)
+        bagSizer.Add(self.choice_1,pos=(0, 0), flag = wx.EXPAND | wx.ALL | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(self.button_expt_run, pos=(0, 1), flag = wx.ALL | wx.ALIGN_CENTER_VERTICAL)
 
-        bagSizer.Add(self.cb_Expt_1, pos=(1,0), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
-        bagSizer.Add(self.cb_Expt_2, pos=(1,1), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(self.cb_Expt_1, pos=(1, 0), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(self.cb_Expt_2, pos=(1, 1), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
 
-        bagSizer.Add(self.cb_Expt_3, pos=(2,0), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
-        bagSizer.Add(self.cb_Expt_4, pos=(2,1), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(self.cb_Expt_3, pos=(2, 0), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(self.cb_Expt_4, pos=(2, 1), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
 
-        bagSizer.Add(self.cb_Expt_5, pos=(3,0), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
-        bagSizer.Add(self.cb_Expt_6, pos=(3,1), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(self.cb_Expt_5, pos=(3, 0), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(self.cb_Expt_6, pos=(3, 1), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
 
-        bagSizer.Add(self.cb_Expt_7, pos=(4,0), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
+        bagSizer.Add(self.cb_Expt_7, pos=(4, 0), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
 
         topSizer.Add(bagSizer, 0, wx.ALL | wx.EXPAND, 5)
         sidepanel.SetSizer(topSizer)
@@ -280,7 +290,11 @@ class MainFrame(frame):
     #~ CREATING THE MODELING side menu
 
     def CreateModelSideMenu(self):
-        modelsidepanel = scrolled.ScrolledPanel(self, -1, size = wx.Size(200,200), style = wx.TAB_TRAVERSAL|wx.SUNKEN_BORDER, name="modelsidepanel")
+        modelsidepanel = scrolled.ScrolledPanel(self,
+                                                -1,
+                                                size = wx.Size(200, 200),
+                                                style = wx.TAB_TRAVERSAL|wx.SUNKEN_BORDER,
+                                                name="modelsidepanel")
         sizer   = wx.BoxSizer(wx.VERTICAL)
         self.SetSizer(sizer)
 
@@ -361,7 +375,7 @@ class MainFrame(frame):
             Creates the Bioleach Side Menu
         """
         bioleachsidepanel = scrolled.ScrolledPanel(self, -1, size = wx.Size(200,200), style = wx.TAB_TRAVERSAL|wx.SUNKEN_BORDER, name="modelsidepanel")
-        sizer   = wx.BoxSizer(wx.VERTICAL)
+        sizer = wx.BoxSizer(wx.VERTICAL)
 
         list_1  = ['Ferrous Sulphate', 'Pyrite', 'Chalcopyrite']
         list_2      = ['Acidiothiobacillus Ferrooxidaans', 'Leptospirillum Ferriphillum', 'Both']
