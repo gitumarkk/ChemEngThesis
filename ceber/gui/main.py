@@ -1,4 +1,8 @@
 import sys
+import os
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+BASE_DIR = os.path.split(CURRENT_DIR)[0]
+sys.path.append(BASE_DIR)
 
 #~ import numpy
 import matplotlib
@@ -6,8 +10,7 @@ import matplotlib
 import wx
 import wx.grid as gridlib
 import wx.lib.agw.aui as aui
-from wx.lib.embeddedimage import PyEmbeddedImage
-import  wx.lib.scrolledpanel as scrolled
+import wx.lib.scrolledpanel as scrolled
 import wx.lib.agw.advancedsplash as AS
 
 import matplotlib.pyplot as pyplot
@@ -15,9 +18,9 @@ from matplotlib.backends.backend_wxagg import NavigationToolbar2Wx as Toolbar
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg as Canvas
 #~ from scipy.interpolate import spline
 
-import data
-import expt
-import images
+from data import data
+from calculations import expt
+from images import images
 
 ID_MainToolBar_file = wx.NewId()
 ID_MainToolBar_save = wx.NewId()
@@ -30,7 +33,10 @@ ID_help_menu        = wx.NewId()
 ID_About            = wx.NewId()
 
 
-frame   = wx.Frame
+# PATHS
+IMAGE_PATH = os.path.join(BASE_DIR, "images")
+
+frame = wx.Frame
 
 class MainFrame(frame):
     """
@@ -66,7 +72,8 @@ class MainFrame(frame):
 
         self.CreateSplashScreen()
 
-        pic = wx.Icon("logo.ICO", wx.BITMAP_TYPE_ICO)
+        LOGO_PATH = os.path.join(IMAGE_PATH, "logo.ico")
+        pic = wx.Icon(LOGO_PATH, wx.BITMAP_TYPE_ICO)
         self.SetIcon(pic)
 
         #~ Set Up Default Notebook Styles
@@ -103,18 +110,74 @@ class MainFrame(frame):
             Creating The Datadisplay Pane for the Bottom
         """
         #~ The Main Note Book Page
-        self._mgr.AddPane(self.CreateNotebookPlot(), aui.AuiPaneInfo().Name("notebook_content").CenterPane().PaneBorder(True).Floatable(False))
+        (self._mgr.AddPane(self.CreateNotebookPlot(),
+                           aui.AuiPaneInfo().
+                           Name("notebook_content").
+                           CenterPane().
+                           PaneBorder(True).
+                           Floatable(False)))
 
         #~ The Side Panel for the Notebooks
-        self._mgr.AddPane(self.CreateExptSideMenu(),
-                          aui.AuiPaneInfo().
-                          Name("ExptSideMenu").
-                          BestSize(wx.Size(250,50)).MinSize(wx.Size(250,50)).Caption("Experiment Results").Layer(2).Position(0).Left().MinimizeButton(False).MaximizeButton(False).CloseButton(False).RightDockable(True).Floatable(False).PaneBorder(False))
-        self._mgr.AddPane(self.CreateModelSideMenu(), aui.AuiPaneInfo().Name("ModelSideMenu").BestSize(wx.Size(250,300)).MinSize(wx.Size(250,300)).Caption("Modelling").Layer(2).Position(1).Left().MinimizeButton(False).MaximizeButton(False).CloseButton(False).RightDockable(True).Floatable(False).PaneBorder(False))
-        self._mgr.AddPane(self.CreateBioleachSideMenu(), aui.AuiPaneInfo().Name("BioleachSideMenu").BestSize(wx.Size(250,100)).MinSize(wx.Size(250,100)).Caption("Bioleaching").Layer(2).Position(2).Left().MinimizeButton(False).MaximizeButton(False).CloseButton(False).RightDockable(True).Floatable(False).PaneBorder(False))
+        (self._mgr.AddPane(self.CreateExptSideMenu(),
+                           aui.AuiPaneInfo().
+                           Name("ExptSideMenu").
+                           BestSize(wx.Size(250, 50)).
+                           MinSize(wx.Size(250,50)).
+                           Caption("Experiment Results").
+                           Layer(2).Position(0).Left().
+                           MinimizeButton(False).
+                           MaximizeButton(False).
+                           CloseButton(False).
+                           RightDockable(True).
+                           Floatable(False).
+                           PaneBorder(False)))
+
+        (self._mgr.AddPane(self.CreateModelSideMenu(),
+                           aui.AuiPaneInfo().
+                           Name("ModelSideMenu").
+                           BestSize(wx.Size(250, 300)).
+                           MinSize(wx.Size(250, 300)).
+                           Caption("Modelling").
+                           Layer(2).
+                           Position(1).
+                           Left().
+                           MinimizeButton(False).
+                           MaximizeButton(False).
+                           CloseButton(False).
+                           RightDockable(True).
+                           Floatable(False).
+                           PaneBorder(False)))
+
+        (self._mgr.AddPane(self.CreateBioleachSideMenu(),
+                           aui.AuiPaneInfo().
+                           Name("BioleachSideMenu").
+                           BestSize(wx.Size(250, 100)).
+                           MinSize(wx.Size(250, 100)).
+                           Caption("Bioleaching").
+                           Layer(2).
+                           Position(2).
+                           Left().
+                           MinimizeButton(False).
+                           MaximizeButton(False).
+                           CloseButton(False).
+                           RightDockable(True).
+                           Floatable(False).
+                           PaneBorder(False)))
 
         #~ The DataOutput Pane
-        self._mgr.AddPane(self.CreateDataOutputPane(), aui.AuiPaneInfo().Name("OutputData").Caption("Output Data").Layer(1).Position(1).Bottom().MinimizeButton(True).MaximizeButton(True).CloseButton(False).BottomDockable(True).Floatable(False))
+        (self._mgr.AddPane(self.CreateDataOutputPane(),
+                           aui.AuiPaneInfo().
+                           Name("OutputData").
+                           Caption("Output Data").
+                           Layer(1).
+                           Position(1).
+                           Bottom().
+                           MinimizeButton(True).
+                           MaximizeButton(True).
+                           CloseButton(False).
+                           BottomDockable(True).
+                           Floatable(False)))
+
         self._mgr.Update()
 
     """
@@ -380,7 +443,9 @@ class MainFrame(frame):
 
     def CreateSplashScreen(self):
         #~ bitmap = wx.Bitmap("logo.PNG", wx.BITMAP_TYPE_PNG)
-        bitmap = wx.Bitmap("CeBER.jpg", wx.BITMAP_TYPE_JPEG)
+
+        BITMAP_PATH = os.path.join(IMAGE_PATH, "CeBER.jpg")
+        bitmap = wx.Bitmap(BITMAP_PATH, wx.BITMAP_TYPE_JPEG)
         shadow = wx.BLACK
 
         frame = AS.AdvancedSplash(self, bitmap=bitmap, timeout=1000,
@@ -809,9 +874,8 @@ class Plot(wx.Panel):
         self.SetSizer(sizer)
 
 if __name__  == "__main__":
-    #~ app  = gui.DataPlot(run = 7.4)
-    app         = wx.App(False)
-    frame       = MainFrame()
+    app = wx.App(False)
+    frame = MainFrame()
     frame.Show()
     app.MainLoop()
 
