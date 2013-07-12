@@ -79,23 +79,6 @@ class MainFrame(frame):
 
     def BuildPanes(self):
         self.SetMinSize(wx.Size(400, 300))
-
-        #~ tb1  = aui.AuiToolBar(self, -1, wx.DefaultPosition, wx.DefaultSize, agwStyle = aui.AUI_TB_DEFAULT_STYLE | aui.AUI_TB_OVERFLOW)
-        #~ tb1.SetToolBitmapSize(wx.Size(16, 16))
-        #~
-        #~ tb1.AddSimpleTool(ID_MainToolBar_open, "Main Toolbar file", wx.ArtProvider.GetBitmap(wx.ART_NEW_DIR))
-        #~ tb1.AddSeparator()
-        #~ tb1.AddSimpleTool(ID_MainToolBar_open, "Main Toolbar Open", wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN))
-        #~ tb1.AddSimpleTool(ID_MainToolBar_save, "Main Toolbar Save", wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE))
-
-        #~ tb1.Realize()
-
-        """
-            ADDING TOOLBARS PANES
-        """
-        #~ self._mgr.AddPane(tb1, aui.AuiPaneInfo().Name("tb1").Caption("Main Toolbar").Dockable(False).ToolbarPane().Top())
-
-
         """
             Creating The Datadisplay Pane for the Bottom
         """
@@ -221,7 +204,6 @@ class MainFrame(frame):
 
 
     #~ CREATING THE EXPERIMENT PLOTTING side menu
-
     def CreateExptSideMenu(self):
         sidepanel = scrolled.ScrolledPanel(self,
                                            -1,
@@ -325,9 +307,6 @@ class MainFrame(frame):
         #~ Creating Bacterial Species for Bacterial Growth Rate
         list_2      = ['Acidiothiobacillus Ferrooxidaans', 'Leptospirillum Ferriphillum', 'Both']
 
-        #~ slider       = wx.Slider(modelsidepanel, -1, 1, 0, 1, wx.DefaultPosition, (150, -1), wx.SL_HORIZONTAL | wx.SL_AUTOTICKS | wx.SL_LABELS )
-        #~ slider.SetTickFreq(1, 1)
-
         text_3 = wx.StaticText(modelsidepanel, label="Choose Bacterial Species To Model")
         choice_2 = wx.Choice(modelsidepanel, -1, size = (150, 25), choices = list_2)
 
@@ -336,7 +315,7 @@ class MainFrame(frame):
         spinc.SetRange(0,100)
         spinc.SetValue(0)
 
-        textbox_1   = wx.StaticText(modelsidepanel, -1, "This will will Contain Updated val", wx.DefaultPosition)
+        textbox_1 = wx.StaticText(modelsidepanel, -1, "This will will Contain Updated val", wx.DefaultPosition)
 
         bagSizer.Add(text_3, pos=(5,0), span=(1, 3), flag = wx.EXPAND | wx.LEFT | wx.TOP | wx.ALIGN_CENTER_VERTICAL, border = 10)
         bagSizer.Add(choice_2, pos=(6,0), span=(1, 3), flag = wx.EXPAND | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, border = 10)
@@ -416,18 +395,18 @@ class MainFrame(frame):
 
         Returns a notebook object that is attached to panel by self._mgr and has name notebook_content
         """
-        self._notebook_style    = aui.AUI_NB_DEFAULT_STYLE | aui.AUI_NB_TAB_EXTERNAL_MOVE | wx.NO_BORDER
-        self._notebook_theme    = 0
-        client_size     = self.GetClientSize()
+        self._notebook_style = aui.AUI_NB_DEFAULT_STYLE | aui.AUI_NB_TAB_EXTERNAL_MOVE | wx.NO_BORDER
+        self._notebook_theme = 0
+        client_size = self.GetClientSize()
 
-        self.newtab     = aui.AuiNotebook(self, -1, wx.Point(client_size.x, client_size.y), wx.Size(430, 200), agwStyle = self._notebook_style)
-        arts            = [aui.AuiDefaultTabArt, aui.AuiSimpleTabArt, aui.VC71TabArt, aui.FF2TabArt, aui.VC8TabArt, aui.ChromeTabArt]
-        art             = arts[len(arts)-1]()
+        self.newtab = aui.AuiNotebook(self, -1, wx.Point(client_size.x, client_size.y), wx.Size(430, 200), agwStyle = self._notebook_style)
+        arts = [aui.AuiDefaultTabArt, aui.AuiSimpleTabArt, aui.VC71TabArt, aui.FF2TabArt, aui.VC8TabArt, aui.ChromeTabArt]
+        art = arts[len(arts)-1]()
         self.newtab.SetArtProvider(art)
 
-        self.page_bmp       = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE, wx.ART_OTHER, wx.Size(16, 16))
+        self.page_bmp = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE, wx.ART_OTHER, wx.Size(16, 16))
 
-        sizer           = wx.BoxSizer(wx.VERTICAL)
+        sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(self.newtab, 1, wx.EXPAND)
         self.SetSizer(sizer)
 
@@ -436,7 +415,10 @@ class MainFrame(frame):
     #~ CREATING THE DATA OUTPUT PANE AT THE BOTTOM OF THE WINDOW
 
     def CreateDataOutputPane(self):
-        panel   = scrolled.ScrolledPanel(self, -1,wx.Point(0,0), wx.Size(20, 100))
+        panel   = scrolled.ScrolledPanel(self,
+                                         -1,
+                                         wx.Point(0, 0),
+                                         wx.Size(20, 100))
 
         panel.SetAutoLayout(1)
         panel.SetupScrolling()
@@ -468,7 +450,7 @@ class MainFrame(frame):
         ====================================================================================================
     """
     def SetExptChoiceValue(self, event):
-        self.Exptvalue  = float(event.GetString())
+        self.Exptvalue = float(event.GetString())
 
     def GetExptChoiceValue(self):
         return self.Exptvalue
@@ -503,7 +485,6 @@ class MainFrame(frame):
         self.Close()
 
     def OnAbout(self, event):
-
         msg = "E-waste modelling Unit \n" + \
               "Trying to make the world a better place \n"
         dlg = wx.MessageDialog(self, msg, "About wx.aui Demo",
@@ -538,7 +519,7 @@ class MainFrame(frame):
         auinotebook.AddPage(self.CreateNotebookPlot(), "")
         """
 
-        self.ExptRun(run = self.GetExptChoiceValue())
+        self.ExptRun(run=self.GetExptChoiceValue())
 
         self.KeyShow()
 
@@ -571,7 +552,6 @@ class MainFrame(frame):
         mainSizer = wx.BoxSizer(wx.HORIZONTAL)
 
         self.DataArrayToGrid(datapane)
-
         sizer   = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(self.DataArrayToGrid(datapane), 1, wx.EXPAND, 5)
         datapane.SetSizer(sizer)
@@ -580,11 +560,11 @@ class MainFrame(frame):
         self._mgr.Update()
         self.Refresh()
 
-    def ExptRun(self, run = None):
-        self.plot_data      = expt.Data(run = run)
-        self.iron_conc      = self.plot_data.iron_conc()
-        self.copper_conc    = self.plot_data.copper_conc()
-        self.raw_data       = self.plot_data.GetRawIronData()
+    def ExptRun(self, run=None):
+        self.plot_data = expt.Data(run = run)
+        self.iron_conc = self.plot_data.iron_conc()
+        self.copper_conc = self.plot_data.copper_conc()
+        self.raw_data = self.plot_data.GetRawIronData()
 
 
     """
@@ -604,7 +584,7 @@ class MainFrame(frame):
         return len(self.DataDictToArray()[0])
 
     def DataArrayToGrid(self, parent):
-        grid    = gridlib.Grid(parent)
+        grid = gridlib.Grid(parent)
         grid.CreateGrid(25, 25)
         grid.EnableEditing(False)
         grid.SetRowLabelSize(0)
@@ -633,7 +613,7 @@ class MainFrame(frame):
         data_array  = []
 
         for dict_key in self.raw_data:
-            data_array.append("%s g / L"%dict_key)
+            data_array.append("%s g / L" % dict_key)
             #~ Parsing the Raw Data
             self.raw_data[dict_key][0].insert(0, "Time (Min)")
             self.raw_data[dict_key][1].insert(0, "Fe3+ Abs")
@@ -669,21 +649,21 @@ class MainFrame(frame):
 
     def CopperShow(self):
         for k in self.copper_conc:
-            figure = self.Add('Copper_data ' + str(k) + 'g/L').gca(ylabel = "Copper conc in g", xlabel = "Time (min)")
-            figure.plot(self.copper_conc[k][0], self.copper_conc[k][1], '-x', label = str(k)+"g/L")
-            figure.legend(loc = "lower center", bbox_to_anchor = (0.5, 0), ncol = 2, fancybox = True, shadow = True)
+            figure = self.Add('Copper_data ' + str(k) + 'g/L').gca(ylabel="Copper conc in g", xlabel="Time (min)")
+            figure.plot(self.copper_conc[k][0], self.copper_conc[k][1], '-x', label=str(k)+"g/L")
+            figure.legend(loc="lower center", bbox_to_anchor=(0.5, 0), ncol=2, fancybox=True, shadow=True)
 
     def CopperShowAll(self):
-        figure = self.Add('Show All Copper Data').gca(ylabel = "Copper conc in g", xlabel = "Time (min)")
+        figure = self.Add('Show All Copper Data').gca(ylabel="Copper conc in g", xlabel="Time (min)")
         for k in self.copper_conc:
-            figure.plot(self.copper_conc[k][0], self.copper_conc[k][1], '-x', label = str(k)+"g/L Copper")
-            figure.legend(loc = "lower center", bbox_to_anchor = (0.5, 0), ncol = 2, fancybox = True, shadow = True)
+            figure.plot(self.copper_conc[k][0], self.copper_conc[k][1], '-x', label=str(k)+"g/L Copper")
+            figure.legend(loc="lower center", bbox_to_anchor=(0.5, 0), ncol=2, fancybox=True, shadow=True)
 
     def IronShow(self):
         for k in self.iron_conc:
             figure = self.Add('Iron_data ' + str(k) + 'g/L').gca(ylabel = "iron conc in g", xlabel = "Time (min)")
-            figure.plot(self.iron_conc[k][0], self.iron_conc[k][1], '-x', label = str(k)+"g/L Fe2+")
-            figure.plot(self.iron_conc[k][0], self.iron_conc[k][2], '-x', label = str(k)+"g/L Fe3+")
+            figure.plot(self.iron_conc[k][0], self.iron_conc[k][1], '-x', label=str(k)+"g/L Fe2+")
+            figure.plot(self.iron_conc[k][0], self.iron_conc[k][2], '-x', label=str(k)+"g/L Fe3+")
             figure.legend(['Actual', 'Actual'], 7)
             figure.legend(loc = "upper center", bbox_to_anchor = (0.5, 1.1), ncol = 4, fancybox = True, shadow = True)
 
@@ -695,11 +675,11 @@ class MainFrame(frame):
             figure.legend(loc = "upper center", bbox_to_anchor = (0.5, 1.1), ncol = 4, fancybox = True, shadow = True)
 
     def KeyShow(self):
-        panel       = wx.Panel(self, id=-1)
+        panel = wx.Panel(self, id=-1)
         self.newtab.AddPage(panel, "Data Key", True, self.page_bmp)
 
     def Add(self, name = None):
-        page    = Plot(self.newtab)
+        page = Plot(self.newtab)
         self.newtab.AddPage(page, name, True, self.page_bmp)
         return page.figure
 

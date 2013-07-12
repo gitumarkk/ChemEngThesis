@@ -4,12 +4,13 @@ from data import data
     The purpose of this file is the main experimental data analysis
 """
 
+
 class Data:
     #~ Constructor For the script
     def __init__(self, run=None):
-        self.COPPER_MR      = 63.55
-        self.IRON_MR        = 55.85
-        self.ASSAY_GRAD     = 0.015
+        self.COPPER_MR = 63.55
+        self.IRON_MR = 55.85
+        self.ASSAY_GRAD = 0.015
         self.run = run
 
     def GetExptRun(self):
@@ -19,7 +20,6 @@ class Data:
         return self.raw_data
 
     #~  Processing the iron data
-
     def iron_conc(self):
         self.raw_data = data.data_run(self.run)
         self.iron_data  = {}
@@ -84,11 +84,3 @@ class Data:
         #~ self.x = 1
     #~ data = Data(run = 7.4)
     #~ data.copper_conc()
-
-
-if __name__  == "__main__":
-    print "From Main"
-#   app = DataPlot(run = 7.5)
-    #~ print data.data_run('ALL')
-
-
